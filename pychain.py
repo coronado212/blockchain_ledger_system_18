@@ -52,7 +52,6 @@ class Record:
     sender: str
     receiver: str
     amount: float
-    timestamp: str = datetime.utcnow().strftime("%H:%M:%S")
 
 ################################################################################
 # Step 2:
@@ -68,10 +67,10 @@ class Record:
 @dataclass
 class Block:
 
-    # @TODO
     # Rename the `data` attribute to `record`, and set the data type to `Record`
+    
+    # @TODO:
     record: Record
-
     creator_id: int
     prev_hash: str = 0
     timestamp: str = datetime.datetime.utcnow().strftime("%H:%M:%S")
@@ -115,7 +114,7 @@ class PyChain:
 
             calculated_hash = block.hash_block()
 
-        print("Wining Hash", calculated_hash)
+        print("Winning Hash", calculated_hash)
         return block
 
     def add_block(self, candidate_block):
@@ -172,15 +171,15 @@ input_data = st.text_input("Block Data")
 
 # @TODO:
 # Add an input area where you can get a value for `sender` from the user.
-# YOUR CODE HERE
+sender = st.text_input("Sender ID")
 
 # @TODO:
 # Add an input area where you can get a value for `receiver` from the user.
-# YOUR CODE HERE
+receiver = st.text_input("Recepient ID")
 
 # @TODO:
 # Add an input area where you can get a value for `amount` from the user.
-# YOUR CODE HERE
+amount = st.text_input("Amount")
 
 if st.button("Add Block"):
     prev_block = pychain.chain[-1]
@@ -193,7 +192,8 @@ if st.button("Add Block"):
     new_block = Block(
         data=input_data,
         creator_id=42,
-        prev_hash=prev_block_hash
+        prev_hash=prev_block_hash,
+        record= Record
     )
 
     pychain.add_block(new_block)
